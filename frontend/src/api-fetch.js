@@ -28,14 +28,14 @@ export const addPost = (title, body, author, category) => {
   return fetch(`${api}/posts`, {
     method: 'POST',
     headers,
-    body: {
+    body: JSON.stringify({
       id: uuidv4(),
       timestamp: Date.now(),
       title,
       body,
       author,
       category
-    }
+    })
   })
 }
 
@@ -47,9 +47,9 @@ export const voteOnPost = (id, option) => {
   return fetch(`${api}/posts/${id}`, {
     method: 'POST',
     headers,
-    body: {
+    body: JSON.stringify({
       option
-    }
+    })
   })
 }
 
@@ -57,10 +57,10 @@ export const editPost = (id, title, body) => {
   return fetch(`${api}/posts/${id}`, {
     method: 'PUT',
     headers,
-    body: {
+    body: JSON.stringify({
       title,
       body
-    }
+    })
   })
 }
 
@@ -76,13 +76,13 @@ export const addComment = (body, author, parentId) => {
   return fetch(`${api}/comments`, {
     method: 'POST',
     headers,
-    body: {
+    body: JSON.stringify({
       id: uuidv4(),
       timestamp: Date.now(),
       body,
       author,
       parentId
-    }
+    })
   })
 }
 
@@ -94,7 +94,7 @@ export const voteOnComment = (id, option) => {
   return fetch(`${api}/comments/${id}`, {
     method: 'POST',
     headers,
-    body: { option }
+    body: JSON.stringify({ option })
   })
 }
 
@@ -102,10 +102,10 @@ export const editComment = (id, body) => {
   return fetch(`${api}/comments/${id}`, {
     method: 'PUT',
     headers,
-    body: {
+    body: JSON.stringify({
       timestamp: Date.now(),
       body
-    }
+    })
   })
 }
 
