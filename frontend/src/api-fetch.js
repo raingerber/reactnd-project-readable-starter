@@ -6,7 +6,8 @@ localStorage.token = localStorage.token || Math.random().toString(36).substr(-8)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': localStorage.token
+  'Authorization': localStorage.token,
+  'Content-Type': 'application/json'
 }
 
 const fetchJson = (url, opts) => fetch(url, opts).then(res => res.json())
