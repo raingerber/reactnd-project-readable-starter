@@ -1,0 +1,25 @@
+textarea {
+  resize: none;
+}
+
+.post-bottom-panel {
+  height: 40px;
+  margin-top: calc(-2rem - 40px);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.button-group button:not(:last-of-type) {
+  margin-right: .5rem;
+}
+
+label {
+  opacity: 0;
+}
+
+.editing label {
+  opacity: 1;
+}
