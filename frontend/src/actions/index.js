@@ -6,7 +6,8 @@ import {
   GET_POSTS,
   GET_POST,
   ADD_POST,
-  VOTE_ON_POST,
+  UP_VOTE_POST,
+  DOWN_VOTE_POST,
   EDIT_POST,
   DELETE_POST,
   GET_POST_COMMENTS,
@@ -17,17 +18,8 @@ import {
   DELETE_COMMENT
 } from './types'
 
-// const thunk = (type, requestFn) => (dispatch) => {
-//   return requestFn().then(data => dispatch({ type, data }))
-// }
-
-const thunk = (type, requestFn) => {
-  if (!requestFn) {
-    console.log(`requestFn for the "${type}" type is not valid!`)
-    return () => ({})
-  }
-
-  return (dispatch) => requestFn().then(data => dispatch({ type, data }))
+const thunk = (type, requestFn) => params => dispatch => {
+  return requestFn(params).then(data => dispatch({ type, data }))
 }
 
 export const getCategories = thunk(GET_CATEGORIES, api.getCategories)
@@ -35,7 +27,8 @@ export const getCategoryPosts = thunk(GET_CATEGORY_POSTS, api.getCategoryPosts)
 export const getPosts = thunk(GET_POSTS, api.getPosts)
 export const getPost = thunk(GET_POST, api.getPost)
 export const addPost = thunk(ADD_POST, api.addPost)
-export const voteOnPost = thunk(VOTE_ON_POST, api.voteOnPost)
+export const upVotePost = thunk(UP_VOTE_POST, api.upVotePost)
+export const downVotePost = thunk(DOWN_VOTE_POST, api.downVotePost)
 export const editPost = thunk(EDIT_POST, api.editPost)
 export const deletePost = thunk(DELETE_POST, api.deletePost)
 export const getPostComments = thunk(GET_POST_COMMENTS, api.getPostComments)
