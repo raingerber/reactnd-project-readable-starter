@@ -19,8 +19,8 @@ class TextArea extends Component {
     return (
       <textarea
         value={this.state.value}
-        onChange={this.onChange.bind(this)}
         rows={this.props.rows}
+        onChange={this.onChange.bind(this)}
       />
     )
   }
@@ -32,8 +32,7 @@ TextArea.propTypes = {
 }
 
 TextArea.defaultProps = {
-  value: '',
-  rows: 6
+  value: ''
 }
 
 export default TextArea
