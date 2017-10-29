@@ -1,28 +1,21 @@
-.App {
-  text-align: center;
+.post-container {
+  width: 90vw;
+  margin: 0 auto;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.button-text {
+  margin-right: 5px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.button .caret {
+  margin-right: 0; /* override kube's default */
 }
 
-.App-title {
-  font-size: 1.5em;
+.link-td:hover {
+  cursor: pointer;
+  background: #e0e1e1;
 }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.link-td.selected {
+  background: #bdbdbd
 }
