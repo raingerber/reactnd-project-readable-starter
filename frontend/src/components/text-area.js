@@ -2,13 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class TextArea extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { value: props.value }
-  }
-
   onChange (event) {
-    this.setState({ value: event.target.value })
+    this.props.onChange(event.target.value)
   }
 
   onSubmit (event) {
@@ -18,8 +13,8 @@ class TextArea extends Component {
   render () {
     return (
       <textarea
-        value={this.state.value}
         rows={this.props.rows}
+        value={this.props.value}
         onChange={this.onChange.bind(this)}
       />
     )
@@ -28,7 +23,8 @@ class TextArea extends Component {
 
 TextArea.propTypes = {
   rows: PropTypes.number,
-  value: PropTypes.string
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired
 }
 
 TextArea.defaultProps = {
