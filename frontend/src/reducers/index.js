@@ -90,7 +90,7 @@ function commentReducer (state = {}, action) {
   return state
 }
 
-function categoryReducer (state = {}, action) {
+function categoryReducer (state = [], action) {
   if (action.type === GET_CATEGORIES) {
     return action.data
   }
