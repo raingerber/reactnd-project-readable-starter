@@ -2,7 +2,7 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
-import Post from './item'
+import Post from './post'
 
 function PostList ({ posts }) {
   return (
