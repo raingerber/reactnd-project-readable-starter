@@ -3,13 +3,26 @@ import { connect } from 'react-redux'
 
 function CategoryList ({ categories }) {
   return (
-    <div className='category-list'>
-      {categories.map(({ name, path }) => (
-        <div key={name}>
-          <a href={`/${path}`}>{name}</a>
-        </div>
-      ))}
-    </div>
+    <table className='category-list bordered'>
+      <thead>
+        <tr>
+          <th className='w80'>Category</th>
+          <th className='w20'># of posts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {categories.map(({ name, path }) => (
+          <tr key={name}>
+            <td className='w80 link-td'>
+              <a href={`/${path}`}>{name}</a>
+            </td>
+            <td className='w20'>
+              25
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }
 
