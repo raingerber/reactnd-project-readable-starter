@@ -13,8 +13,8 @@ class TextArea extends Component {
   render () {
     return (
       <textarea
-        rows={this.props.rows}
         value={this.props.value}
+        rows={this.props.rows}
         onChange={this.onChange.bind(this)}
       />
     )
@@ -22,13 +22,14 @@ class TextArea extends Component {
 }
 
 TextArea.propTypes = {
-  rows: PropTypes.number,
   value: PropTypes.string,
+  rows: PropTypes.string,
   onChange: PropTypes.func.isRequired
 }
 
 TextArea.defaultProps = {
-  value: ''
+  value: '',
+  rows: 'auto'
 }
 
 export default TextArea
