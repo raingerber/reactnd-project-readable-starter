@@ -1,29 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 
 function CategoryList ({ categories }) {
   return (
-    <table className='category-list bordered'>
-      <thead>
-        <tr>
-          <th className='w80'>Category</th>
-          <th className='w20'># of posts</th>
-        </tr>
-      </thead>
-      <tbody>
+    <nav className='breadcrumbs push-center'>
+      <label>Categories:</label>
+      <ul className='category-list'>
+        <li>
+          <NavLink to='/' activeClassName='active'>all</NavLink>
+        </li>
         {categories.map(({ name, path }) => (
-          <tr key={name}>
-            <td className='w80 link-td'>
-              <a href={`/${path}`}>{name}</a>
-            </td>
-            <td className='w20'>
-              25
-            </td>
-          </tr>
+          <li key={`${name}${path}`}>
+            <NavLink to={`/category/${path}`} activeClassName='active'>{name}</NavLink>
+          </li>
         ))}
-      </tbody>
-    </table>
+      </ul>
+    </nav>
   )
 }
+
+// TODO get NavLink to work
 
 export default connect(({ categories }) => ({ categories }))(CategoryList)
