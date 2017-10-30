@@ -1,4 +1,4 @@
-/* global fetch:false */
+/* globals fetch */
 
 const uuidv4 = require('uuid/v4')
 
@@ -31,25 +31,25 @@ const getPost = ({ id }) => {
   return fetchJson(`${api}/posts/${id}`, { headers })
 }
 
-const addPost = ({ title, body, author, category }) => {
+const addPost = ({ category, author, title, body }) => {
   return fetchJson(`${api}/posts`, {
-    method: 'POST',
     headers,
+    method: 'POST',
     body: JSON.stringify({
       id: uuidv4(),
       timestamp: Date.now(),
-      title,
-      body,
+      category,
       author,
-      category
+      title,
+      body
     })
   })
 }
 
 const voteOnPost = ({ id, option }) => {
   return fetchJson(`${api}/posts/${id}`, {
-    method: 'POST',
     headers,
+    method: 'POST',
     body: JSON.stringify({
       option
     })
@@ -62,17 +62,17 @@ const downVotePost = ({ id }) => voteOnPost({ id, option: 'downVote' })
 
 const editPost = ({ id, title, body }) => {
   return fetchJson(`${api}/posts/${id}`, {
-    method: 'PUT',
     headers,
+    method: 'PUT',
     body: JSON.stringify({
       title,
       body
     })
-  }).then(() => ({ id, title, body }))
+  }).then(() => ({ id, title, body })) // TODO why is this the only function that's doing this?
 }
 
 const deletePost = ({ id }) => {
-  return fetchJson(`${api}/posts/${id}`, { method: 'DELETE', headers })
+  return fetchJson(`${api}/posts/${id}`, { headers, method: 'DELETE' })
 }
 
 const getPostComments = ({ id }) => {
@@ -81,8 +81,8 @@ const getPostComments = ({ id }) => {
 
 const addComment = ({ body, author, parentId }) => {
   return fetchJson(`${api}/comments`, {
-    method: 'POST',
     headers,
+    method: 'POST',
     body: JSON.stringify({
       id: uuidv4(),
       timestamp: Date.now(),
@@ -99,16 +99,20 @@ const getComment = ({ id }) => {
 
 const voteOnComment = ({ id, option }) => {
   return fetchJson(`${api}/comments/${id}`, {
-    method: 'POST',
     headers,
+    method: 'POST',
     body: JSON.stringify({ option })
   })
 }
 
+const upVoteComment = ({ id }) => voteOnComment({ id, option: 'upVote' })
+
+const downVoteComment = ({ id }) => voteOnComment({ id, option: 'downVote' })
+
 const editComment = ({ id, body }) => {
   return fetchJson(`${api}/comments/${id}`, {
-    method: 'PUT',
     headers,
+    method: 'PUT',
     body: JSON.stringify({
       timestamp: Date.now(),
       body
@@ -118,8 +122,8 @@ const editComment = ({ id, body }) => {
 
 const deleteComment = ({ id }) => {
   return fetchJson(`${api}/comments/${id}`, {
-    method: 'DELETE',
-    headers
+    headers,
+    method: 'DELETE'
   })
 }
 
@@ -138,6 +142,8 @@ export {
   addComment,
   getComment,
   voteOnComment,
+  upVoteComment,
+  downVoteComment,
   editComment,
   deleteComment
 }
