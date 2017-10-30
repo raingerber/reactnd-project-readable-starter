@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import get from 'lodash.get'
 
 import TextArea from './text-area'
@@ -7,7 +8,7 @@ import { Button } from './button'
 
 import { addPost } from '../actions/index'
 
-class NewItem extends Component {
+class AddItem extends Component {
   constructor (props) {
     super(props)
     this.state = { // state is used for controlled components
@@ -55,10 +56,7 @@ class NewItem extends Component {
               <label>Title:</label>
               <TextArea
                 value={this.state.title}
-                onChange={(title) => {
-                  console.error(title)
-                  this.setState({ title })
-                }}
+                onChange={(title) => this.setState({ title })}
                 rows='1'
               />
             </div>
@@ -88,10 +86,10 @@ class NewItem extends Component {
   }
 }
 
-// NewItem.propTypes = {
+// AddItem.propTypes = {
 //   rows: PropTypes.string,
 //   value: PropTypes.string,
 //   onChange: PropTypes.func.isRequired
 // }
 
-export default NewItem
+export default AddItem
