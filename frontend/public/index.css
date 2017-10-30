@@ -38,6 +38,12 @@ label {
   text-align: center;
 }
 
+.breadcrumbs a.active {
+  color: #313439;
+  text-decoration: none;
+  cursor: text;
+}
+
 fieldset {
   margin-bottom: 0;
   padding-bottom: .5rem;
