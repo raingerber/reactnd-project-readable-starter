@@ -13,18 +13,27 @@ import {
   GET_POST_COMMENTS,
   ADD_COMMENT,
   GET_COMMENT,
-  VOTE_ON_COMMENT,
+  VOTE_ON_COMMENT, // TODO have two versions of this?
   EDIT_COMMENT,
-  DELETE_COMMENT
+  DELETE_COMMENT,
+  UPDATE_POST_SORT
 } from '../actions/types'
 
-const addPost = (posts, post) => posts.concat(post) // TODO sort this array
+import sortOn from 'sort-on'
 
-const updatePost = (posts, id, data) => posts.map(post => (
-  post.id === id ? Object.assign({}, post, data) : post
+const addItem = (items, item) => {
+  items.concat(item) // TODO sort this array
+}
+
+const updateItem = (items, id, data) => items.map((item) => (
+  item.id === id ? Object.assign({}, item, data) : item
 ))
 
-const deletePost = (posts, id) => posts.filter(post => post.id !== id)
+const deleteItem = (items, id) => items.filter((item) => item.id !== id)
+
+const sortItems = (items, sortKey, sortOrder) => {
+  return sortOn(items, sortOrder === 'asc' ? sortKey : `-${sortKey}`)
+}
 
 function postReducer (state = [], action) {
   if (action.type === GET_POSTS) {
@@ -36,58 +45,74 @@ function postReducer (state = [], action) {
   }
 
   if (action.type === GET_CATEGORY_POSTS) {
-    return state
+    return action.data
   }
 
   if (action.type === ADD_POST) {
-    return addPost(state, action.data)
+    return addItem(state, action.data)
   }
 
   if (action.type === UP_VOTE_POST) {
-    return updatePost(state, action.data.id, action.data)
+    return updateItem(state, action.data.id, action.data)
   }
 
   if (action.type === DOWN_VOTE_POST) {
-    return updatePost(state, action.data.id, action.data)
+    return updateItem(state, action.data.id, action.data)
   }
 
   if (action.type === EDIT_POST) {
-    return updatePost(state, action.data.id, action.data)
+    return updateItem(state, action.data.id, action.data)
   }
 
   if (action.type === DELETE_POST) {
-    return deletePost(state, action.data.id)
+    return deleteItem(state, action.data.id)
   }
+}
 
-  if (action.type === GET_POST_COMMENTS) {
-    return state
+function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', posts: [] }, action) {
+  let posts
+  if (action.type === UPDATE_POST_SORT) {
+    const sortKey = action.data.sortKey
+    const sortOrder = action.data.sortOrder
+    posts = sortItems(state.posts, sortKey, sortOrder)
+    return { sortKey, sortOrder, posts }
+  } else if ((posts = postReducer(state.posts, action))) {
+    return { ...state, posts: sortItems(posts, state.sortKey, state.sortOrder) }
   }
 
   return state
 }
 
-function commentReducer (state = {}, action) {
+function commentReducer (state = [], action) {
   if (action.type === ADD_COMMENT) {
-    return state
+    return addItem(state, action.data)
+  }
+
+  if (action.type === GET_POST_COMMENTS) {
+    return action.data
   }
 
   if (action.type === GET_COMMENT) {
-    return state
+    return [action.data]
   }
 
   if (action.type === VOTE_ON_COMMENT) {
-    return state
+    return updateItem(state, action.data.id, action.data)
   }
 
   if (action.type === EDIT_COMMENT) {
-    return state
+    return updateItem(state, action.data.id, action.data)
   }
 
   if (action.type === DELETE_COMMENT) {
-    return state
+    return deleteItem(state, action.data.id)
   }
 
   return state
+}
+
+function sortedCommentReducer (state, action) {
+  return sortItems(commentReducer(state, action), 'voteScore', 'desc')
 }
 
 function categoryReducer (state = [], action) {
@@ -99,7 +124,7 @@ function categoryReducer (state = [], action) {
 }
 
 export default combineReducers({
-  posts: postReducer,
-  comments: commentReducer,
+  posts: sortedPostReducer,
+  comments: sortedCommentReducer,
   categories: categoryReducer
 })
