@@ -18,7 +18,7 @@ import {
   DELETE_COMMENT
 } from './types'
 
-const thunk = (type, requestFn) => params => dispatch => {
+const thunk = (type, requestFn) => (params) => (dispatch) => {
   return requestFn(params).then(data => dispatch({ type, data }))
 }
 
@@ -34,6 +34,7 @@ export const deletePost = thunk(DELETE_POST, api.deletePost)
 export const getPostComments = thunk(GET_POST_COMMENTS, api.getPostComments)
 export const addComment = thunk(ADD_COMMENT, api.addComment)
 export const getComment = thunk(GET_COMMENT, api.getComment)
-export const voteOnComment = thunk(VOTE_ON_COMMENT, api.voteOnComment)
+export const upVoteComment = thunk(VOTE_ON_COMMENT, api.upVoteComment)
+export const downVoteComment = thunk(VOTE_ON_COMMENT, api.downVoteComment)
 export const editComment = thunk(EDIT_COMMENT, api.editComment)
 export const deleteComment = thunk(DELETE_COMMENT, api.deleteComment)
