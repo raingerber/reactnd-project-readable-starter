@@ -30,6 +30,10 @@ class GenericBlogItem extends Component {
             <div>{this.props.title}</div>
           </div>}
           <div className='form-item'>
+            <label>Author:</label>
+            <div>{this.props.author}</div>
+          </div>
+          <div className='form-item'>
             <label>Body:</label>
             <div>{this.props.body}</div>
           </div>
