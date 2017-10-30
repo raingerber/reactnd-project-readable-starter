@@ -31,7 +31,7 @@ class MainView extends Component {
     // console.error('MainView: render:', this.requestPosts())
     return (
       <div>
-        <CategoryList />
+        <CategoryList location={this.props.location} />
         <SortControls />
         <div className='centered-button-container'>
           <Link className='button small round' to={{
