@@ -11,10 +11,10 @@ function onSubmit () {
   this.setState({ wasSubmitted: true })
 }
 
-function AddPost (props) {
+function EditPost (props) {
   return (
     <AddItem {...props} type='post' />
   )
 }
 
-export default connect(({ categories }) => ({ categories }))(AddPost)
+export default connect(({ categories }) => ({ categories }))(EditPost)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import { formatUnixTimestamp } from '../utils'
 
@@ -34,7 +34,9 @@ class GenericBlogItem extends Component {
             <div>{this.props.body}</div>
           </div>
           <div className='bottom-panel'>
-            <Button>Edit</Button>
+            <Link className='button small round' to={{
+              pathname: `/${this.props.type.toLowerCase()}/${this.props.id}`
+            }}>Edit</Link>
             <Button onClick={this.props.deleteItem}>Delete</Button>
             {this.props.useComments &&
               <Link to={`/category/${this.props.category}/${this.props.id}`} className='button small round comments-button'>
@@ -47,6 +49,8 @@ class GenericBlogItem extends Component {
     )
   }
 }
+
+// TODO have a generic Button type component for styled links
 
 GenericBlogItem.propTypes = {
   id: PropTypes.string,
@@ -67,7 +71,7 @@ GenericBlogItem.propTypes = {
 class VoteScoreBadge extends Component {
   constructor (props) {
     super(props)
-    this.state = {
+    this.state = { // just using to add animations when the vote increases or decreases
       decreased: false,
       increased: false
     }

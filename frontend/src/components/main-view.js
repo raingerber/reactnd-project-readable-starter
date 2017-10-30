@@ -35,7 +35,7 @@ class MainView extends Component {
         <SortControls />
         <div className='centered-button-container'>
           <Link className='button small round' to={{
-            pathname: '/add-post',
+            pathname: '/post',
             state: {
               prevRoute: this.props.location.pathname,
               category: this.getCategory()
