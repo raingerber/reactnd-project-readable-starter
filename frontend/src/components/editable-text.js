@@ -3,10 +3,18 @@ import PropTypes from 'prop-types'
 
 import TextArea from './text-area'
 
-function EditableText ({ editMode, text, onChange }) {
-  return editMode
-    ? <TextArea type='text' value={text} onChange={onChange} />
-    : <div>{text}</div>
+function EditableText ({ editMode, rows, text, onChange }) {
+  if (editMode) {
+    return (
+      <TextArea type='text'
+        rows={rows}
+        value={text}
+        onChange={onChange}
+      />
+    )
+  }
+
+  return <div>{text}</div>
 }
 
 EditableText.propTypes = {
