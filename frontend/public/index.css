@@ -1,5 +1,99 @@
+.text-block {
+  margin: 3em;
+}
+
+.home-link {
+  position: fixed;
+  margin-top: .2em;
+  text-align: center;
+  font-size: 2em;
+  width: 5vw;
+  color: black;
+  cursor: pointer;
+}
+
+.home-link svg {
+  transition: transform .1s;
+}
+
+.home-link:hover {
+  color: black;
+}
+
+.home-link:hover svg {
+  transform: scale(1.2);
+}
+
+.home-link:active svg {
+  transform: scale(.9);
+}
+
+label {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.breadcrumbs label,
+.sort-controls label {
+  text-align: center;
+}
+
+fieldset {
+  margin-bottom: 0;
+  padding-bottom: .5rem;
+  position: relative;
+}
+
 textarea {
   resize: none;
+}
+
+.sort-controls .form-item {
+  width: 150px;
+}
+
+.sort-controls .form-item:not(:last-of-type) {
+  margin-right: 1rem;
+}
+.sort-controls form {
+  margin-bottom: 16px;
+}
+
+.sort-controls form > div {
+  display: flex;
+  justify-content: center;
+}
+
+/*
+.sort-controls form label {
+  height: 36px;
+  line-height: 36px;
+}
+.sort-controls,
+.sort-controls form {
+  display: flex;
+  align-items: center;
+}
+*/
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.post-form {
+  margin-bottom: .5rem;
+}
+
+.centered-button-container {
+  text-align: center;
+}
+
+.centered-button-container button {
+  margin: 0;
+  min-width: 200px;
+}
+
+.post-container {
+  padding: 2rem 0 3rem 0;
 }
 
 .post-bottom-panel {
@@ -7,19 +101,71 @@ textarea {
   margin-top: calc(-2rem - 40px);
 }
 
-.button-group {
-  display: flex;
-  justify-content: center;
-}
-
-.button-group button:not(:last-of-type) {
+.button {
   margin-right: .5rem;
 }
 
-label {
-  opacity: 0;
+.button.small.caret-button {
+  height: 36px;
+  font-size: 24px;
+  line-height: 32px;
+  padding: 0px 16px;
 }
 
-.editing label {
-  opacity: 1;
+.post-comments {
+  padding: 10px 1% 0 5%;
+}
+
+.post-detail-view .comments-button {
+  display: none;
+}
+
+.bottom-panel {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: -1.5rem;
+}
+
+.vote-panel {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.label.badge.vote-badge {
+  padding: 6px 12px;
+}
+
+.category-list {
+  list-style: none;
+}
+
+.category-list li:last-of-type a {
+  padding-right: 0;
+}
+
+@keyframes quick-decrease {
+  50%  { transform: scale(.9); }
+}
+
+@keyframes quick-increase {
+  50%  { transform: scale(1.1); }
+}
+
+.quick-decrease {
+  -webkit-animation: quick-decrease .1s linear;
+  -moz-animation:    quick-decrease .1s linear;
+  -o-animation:      quick-decrease .1s linear;
+  animation:         quick-decrease .1s linear;
+}
+
+.quick-increase {
+  -webkit-animation: quick-increase .1s linear;
+  -moz-animation:    quick-increase .1s linear;
+  -o-animation:      quick-increase .1s linear;
+  animation:         quick-increase .1s linear;
+}
+
+.comments-header {
+  margin-left: 2rem;
 }
