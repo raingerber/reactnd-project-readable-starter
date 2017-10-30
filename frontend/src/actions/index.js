@@ -1,4 +1,4 @@
-import * as api from '../api-fetch'
+import * as api from '../api/index'
 
 import {
   GET_CATEGORIES,
