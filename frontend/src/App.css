@@ -1,16 +1,3 @@
-.post-container {
-  width: 90vw;
-  margin: 0 auto;
-}
-
-.button-text {
-  margin-right: 5px;
-}
-
-.button .caret {
-  margin-right: 0; /* override kube's default */
-}
-
 .link-td:hover {
   cursor: pointer;
   background: #e0e1e1;

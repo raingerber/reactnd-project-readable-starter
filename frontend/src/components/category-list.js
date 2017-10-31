@@ -4,8 +4,11 @@ import { NavLink } from 'react-router-dom'
 
 // when using this component, we should pass the current location object as a
 // prop so the NavLink components can know when to set their active class name
-
 function CategoryList ({ categories }) {
+  if (!categories.length) {
+    return null
+  }
+
   return (
     <nav className='breadcrumbs push-center'>
       <label>Categories:</label>

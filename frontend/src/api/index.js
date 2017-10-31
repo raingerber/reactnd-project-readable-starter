@@ -80,6 +80,7 @@ const getPostComments = ({ id }) => {
 }
 
 const addComment = ({ body, author, parentId }) => {
+  console.error('comment:', { body, author, parentId })
   return fetchJson(`${api}/comments`, {
     headers,
     method: 'POST',

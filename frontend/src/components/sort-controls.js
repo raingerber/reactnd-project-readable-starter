@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import { UPDATE_POST_SORT } from '../actions/types'
+
+const SORT_KEYS = ['Votes', 'Timestamp', 'Title']
+
 // TODO make a pure component
 class SortControls extends Component {
   onChange (key, event) {
@@ -9,7 +12,6 @@ class SortControls extends Component {
       sortKey: this.props.sortKey,
       sortOrder: this.props.sortOrder
     }, { [key]: event.target.value })
-    // console.error('sortItems:', data)
     this.props.dispatch({ type: UPDATE_POST_SORT, data })
   }
 
@@ -27,9 +29,9 @@ class SortControls extends Component {
               <select className='small'
                 value={this.props.sortKey}
                 onChange={this.onChange.bind(this, 'sortKey')}>
-                <option value='votes'>Votes</option>
-                <option value='timestamp'>Timestamp</option>
-                <option value='title'>Title</option>
+                {SORT_KEYS.map((key) => (
+                  <option key={key} value={key.toLowerCase()}>{key}</option>
+                ))}
               </select>
             </div>
             <div className='form-item'>

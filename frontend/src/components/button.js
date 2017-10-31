@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 function Button (props) {
   return (
@@ -27,4 +28,13 @@ function CaretButton (props) {
   )
 }
 
-export { Button, CaretButton }
+function StyledLink (props) {
+  let className = 'button small round'
+  if (props.className) {
+    className += ` ${props.className}`
+  }
+
+  return <Link {...props} className={className} />
+}
+
+export { Button, CaretButton, StyledLink }

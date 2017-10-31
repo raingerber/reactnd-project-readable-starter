@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
-
+import sortOn from 'sort-on'
+import get from 'lodash.get'
 import {
   GET_CATEGORIES,
   GET_CATEGORY_POSTS,
@@ -16,26 +17,37 @@ import {
   VOTE_ON_COMMENT, // TODO have two versions of this?
   EDIT_COMMENT,
   DELETE_COMMENT,
-  UPDATE_POST_SORT
+  UPDATE_POST_SORT,
+  SET_REDIRECT,
+  SAVE_PREV_PATH
 } from '../actions/types'
 
-import sortOn from 'sort-on'
-
 const addItem = (items, item) => {
-  items.concat(item) // TODO sort this array
+  return items.concat(item) // TODO sort this array
 }
 
-const updateItem = (items, id, data) => items.map((item) => (
-  item.id === id ? Object.assign({}, item, data) : item
-))
+const updateItem = (items, id, data) => items.map((item) => {
+  return item.id === id ? Object.assign({}, item, data) : item
+})
 
-const deleteItem = (items, id) => items.filter((item) => item.id !== id)
+const deleteItem = (items, id) => {
+  return items.filter((item) => item.id !== id)
+}
 
 const sortItems = (items, sortKey, sortOrder) => {
   return sortOn(items, sortOrder === 'asc' ? sortKey : `-${sortKey}`)
 }
 
+function hasError (action) {
+  return !!get(action, ['data', 'error'])
+}
+
+// TODO should the sort still happen every time the things get updated?
 function postReducer (state = [], action) {
+  if (hasError(action)) {
+    return []
+  }
+
   if (action.type === GET_POSTS) {
     return action.data
   }
@@ -84,8 +96,14 @@ function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', p
 }
 
 function commentReducer (state = [], action) {
+  if (hasError(action)) {
+    return []
+  }
+
   if (action.type === ADD_COMMENT) {
-    return addItem(state, action.data)
+    const a = addItem(state, action.data)
+    console.error('a:', action.data, state, a)
+    return a
   }
 
   if (action.type === GET_POST_COMMENTS) {
@@ -116,8 +134,31 @@ function sortedCommentReducer (state, action) {
 }
 
 function categoryReducer (state = [], action) {
+  if (hasError(action)) {
+    return []
+  }
+
   if (action.type === GET_CATEGORIES) {
     return action.data
+  }
+
+  return state
+}
+
+// TODO rename as redirect reducer?
+function envReducer (state = { redirect: '', prevPath: '' }, action) {
+  if (action.type === SET_REDIRECT) {
+    return {
+      ...state,
+      redirect: action.redirect
+    }
+  }
+
+  if (action.type === SAVE_PREV_PATH) {
+    return {
+      ...state,
+      prevPath: action.prevPath
+    }
   }
 
   return state
@@ -126,5 +167,6 @@ function categoryReducer (state = [], action) {
 export default combineReducers({
   posts: sortedPostReducer,
   comments: sortedCommentReducer,
-  categories: categoryReducer
+  categories: categoryReducer,
+  env: envReducer
 })
