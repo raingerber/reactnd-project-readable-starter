@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Link, Redirect, withRouter } from 'react-router-dom'
+import { Route, Link, withRouter } from 'react-router-dom'
 import TiHome from 'react-icons/lib/ti/home'
 
 import './App.css'
@@ -13,7 +13,7 @@ import {
   getCategories,
   getPosts,
   getCategoryPosts,
-  setRedirect,
+  // setRedirect,
   savePrevPath
 } from './actions/index'
 
@@ -34,11 +34,6 @@ class App extends Component {
   }
 
   render () {
-    if (this.props.redirect) {
-      // this.props.dispatch(setRedirect(''))
-      return <Redirect to={this.props.prePath || '/'} />
-    }
-
     return (
       <div className='App'>
         <Route render={(props) => (

@@ -19,19 +19,14 @@ function Comment (props) {
       type='comment'
       upVoteItem={() => props.dispatch(upVoteComment({ id: props.id }))}
       downVoteItem={() => props.dispatch(downVoteComment({ id: props.id }))}
-      onCancel={this.props.redirect}
-      deleteItem={() => {
-        props.dispatch(deleteComment({ id: props.id }))
-        this.props.redirect()
-      }}
+      deleteItem={() => props.dispatch(deleteComment({ id: props.id }))}
       onSubmit={({ body, author }) => {
         if (props.id) {
           props.dispatch(editComment({ id: props.id, body }))
         } else {
+          console.error({ parentId: props.parentId, body, author })
           props.dispatch(addComment({ parentId: props.parentId, body, author }))
         }
-
-        this.props.redirect()
       }}
       enableComments={false}
       hasTitle={false}
