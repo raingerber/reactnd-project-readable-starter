@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Route, Link, withRouter } from 'react-router-dom'
+import { Route, Switch, Link, Redirect, withRouter } from 'react-router-dom'
 import TiHome from 'react-icons/lib/ti/home'
+import get from 'lodash.get'
 
 import './App.css'
 
-import MainView from './components/main-view'
+import HomePage from './components/home-page'
 import PostPage from './components/post-page'
 import CommentPage from './components/comment-page'
 
@@ -13,7 +14,6 @@ import {
   getCategories,
   getPosts,
   getCategoryPosts,
-  // setRedirect,
   savePrevPath
 } from './actions/index'
 
@@ -27,6 +27,7 @@ class App extends Component {
   }
 
   componentWillReceiveProps (props) {
+    // save the previous path in case we need to redirect back
     const prevPath = getFullPath(this.props)
     if (getFullPath(props) !== prevPath) {
       this.props.dispatch(savePrevPath(prevPath))
@@ -36,35 +37,41 @@ class App extends Component {
   render () {
     return (
       <div className='App'>
-        <Route render={(props) => (
-          props.location.pathname === '/'
-            ? <a className='home-link' onClick={resetScrollTop}><TiHome /></a>
-            : <Link to='/' className='home-link'><TiHome /></Link>
-        )} />
+        {this.props.location.pathname === '/'
+          ? <a className='home-link' onClick={resetScrollTop}><TiHome /></a>
+          : <Link to='/' className='home-link'><TiHome /></Link>}
         <div className='body-container'>
-          <Route exact path='/' render={(props) => {
-            this.props.dispatch(getPosts())
-            return <MainView {...props} />
-          }} />
-          <Route path='/post/:id?' render={(props) => {
-            return <PostPage {...props} />
-          }} />
-          <Route path='/comment/:id?' render={(props) => {
-            return <CommentPage {...props} />
-          }} />
-          <Route exact path='/category/:category' render={(props) => {
-            const category = props.match.params.category
-            this.props.dispatch(getCategoryPosts({ category }))
-            return <MainView {...props} />
-          }} />
+          <Switch>
+            <Route exact path='/' render={(props) => {
+              this.props.dispatch(getPosts())
+              return <HomePage {...props} />
+            }} />
+            <Route exact path='/category/:category' render={(props) => {
+              const category = get(props, ['match', 'params', 'category'])
+              this.props.dispatch(getCategoryPosts({ category }))
+              return <HomePage {...props} category={category} />
+            }} />
+            <Route path='/post/edit/:id?' render={(props) => {
+              const id = get(props, ['match', 'params', 'id'])
+              const category = get(props, ['location', 'state', 'category'])
+              return <PostPage {...props} id={id} category={category} editMode />
+            }} />
+            <Route path='/post/:id' render={(props) => {
+              const id = get(props, ['match', 'params', 'id'])
+              return <PostPage {...props} id={id} editMode={false} />
+            }} />
+            <Route path='/comment/edit/:parentId/:id?' render={(props) => {
+              const { parentId, id } = get(props, ['match', 'params'], {})
+              return <CommentPage {...props} parentId={parentId} id={id} />
+            }} />
+            <Route render={() => <Redirect to='/' />} />
+          </Switch>
         </div>
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ env: { redirect, prevPath } }) => ({ redirect, prevPath })
+const mapStateToProps = ({ prevPath }) => ({ prevPath })
 
-// TODO do not use withRouter
-// TODO import dispatch instead of using connect?
 export default withRouter(connect(mapStateToProps)(App))

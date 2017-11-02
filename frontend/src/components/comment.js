@@ -1,8 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import BlogItem from './blog-item'
+
+// TODO make '/' the default prevPath
 
 import {
   addComment,
@@ -12,32 +13,42 @@ import {
   deleteComment
 } from '../actions/index'
 
+const redirects = {
+  onEdit: (props) => {
+    const type = props.type.toLowerCase()
+    return `/${type}/edit/${props.parentId}/${props.id}`
+  },
+  onSave: (props) => `/post/${props.parentId}`,
+  onDelete: (props) => `/post/${props.parentId}`,
+  onCancel: (props) => props.prevPath || '/'
+}
+
 function Comment (props) {
+  const { dispatch, id, parentId } = props
+  // console.error('comment ::: ' + props.body)
   return (
     <BlogItem
       {...props}
       type='comment'
-      upVoteItem={() => props.dispatch(upVoteComment({ id: props.id }))}
-      downVoteItem={() => props.dispatch(downVoteComment({ id: props.id }))}
-      deleteItem={() => props.dispatch(deleteComment({ id: props.id }))}
+      redirects={redirects}
+      upVoteItem={() => dispatch(upVoteComment({ id }))}
+      downVoteItem={() => dispatch(downVoteComment({ id }))}
+      deleteItem={() => dispatch(deleteComment({ id }))}
       onSubmit={({ body, author }) => {
-        if (props.id) {
-          props.dispatch(editComment({ id: props.id, body }))
+        // console.error({ dispatch, id, parentId })
+        if (id) {
+          // console.error({ id, body })
+          dispatch(editComment({ id, body }))
         } else {
-          console.error({ parentId: props.parentId, body, author })
-          props.dispatch(addComment({ parentId: props.parentId, body, author }))
+          // console.error({ parentId, author, body })
+          dispatch(addComment({ parentId, author, body }))
         }
       }}
+      enableCategory={false}
       enableComments={false}
-      hasTitle={false}
+      enableTitle={false}
     />
   )
 }
-
-// Comment.propTypes = {
-// }
-
-// Comment.defaultProps = {
-// }
 
 export default connect()(Comment)

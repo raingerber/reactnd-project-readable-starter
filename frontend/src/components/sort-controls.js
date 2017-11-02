@@ -5,7 +5,6 @@ import { UPDATE_POST_SORT } from '../actions/types'
 
 const SORT_KEYS = ['Votes', 'Timestamp', 'Title']
 
-// TODO make a pure component
 class SortControls extends Component {
   onChange (key, event) {
     const data = Object.assign({
@@ -15,16 +14,16 @@ class SortControls extends Component {
     this.props.dispatch({ type: UPDATE_POST_SORT, data })
   }
 
-  handleSubmit (event) {
+  onSubmit (event) {
     event.preventDefault()
   }
 
   render () {
     return (
       <div className='sort-controls'>
-        <form className='form' onSubmit={this.handleSubmit.bind(this)}>
+        <form className='form' onSubmit={this.onSubmit.bind(this)}>
           <label>Sort By:</label>
-          <div>
+          <div className='form-items'>
             <div className='form-item'>
               <select className='small'
                 value={this.props.sortKey}

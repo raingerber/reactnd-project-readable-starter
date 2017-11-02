@@ -18,7 +18,6 @@ import {
   EDIT_COMMENT,
   DELETE_COMMENT,
   UPDATE_POST_SORT,
-  SET_REDIRECT,
   SAVE_PREV_PATH
 } from '../actions/types'
 
@@ -42,7 +41,6 @@ function hasError (action) {
   return !!get(action, ['data', 'error'])
 }
 
-// TODO should the sort still happen every time the things get updated?
 function postReducer (state = [], action) {
   if (hasError(action)) {
     return []
@@ -81,29 +79,13 @@ function postReducer (state = [], action) {
   }
 }
 
-function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', posts: [] }, action) {
-  let posts
-  if (action.type === UPDATE_POST_SORT) {
-    const sortKey = action.data.sortKey
-    const sortOrder = action.data.sortOrder
-    posts = sortItems(state.posts, sortKey, sortOrder)
-    return { sortKey, sortOrder, posts }
-  } else if ((posts = postReducer(state.posts, action))) {
-    return { ...state, posts: sortItems(posts, state.sortKey, state.sortOrder) }
-  }
-
-  return state
-}
-
 function commentReducer (state = [], action) {
   if (hasError(action)) {
     return []
   }
 
   if (action.type === ADD_COMMENT) {
-    const a = addItem(state, action.data)
-    console.error('a:', action.data, state, a)
-    return a
+    return addItem(state, action.data)
   }
 
   if (action.type === GET_POST_COMMENTS) {
@@ -129,8 +111,27 @@ function commentReducer (state = [], action) {
   return state
 }
 
+function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', posts: [] }, action) {
+  if (action.type === UPDATE_POST_SORT) {
+    const { sortKey, sortOrder } = action.data
+    const posts = sortItems(state.posts, sortKey, sortOrder)
+    return { sortKey, sortOrder, posts }
+  }
+
+  let posts = postReducer(state.posts, action)
+
+  if (posts) {
+    const { sortKey, sortOrder } = state
+    posts = sortItems(posts, sortKey, sortOrder).filter((post) => !post.deleted)
+    return { sortKey, sortOrder, posts }
+  }
+
+  return state
+}
+
 function sortedCommentReducer (state, action) {
-  return sortItems(commentReducer(state, action), 'voteScore', 'desc')
+  const comments = commentReducer(state, action)
+  return sortItems(comments, 'voteScore', 'desc').filter((comment) => !comment.parentDeleted)
 }
 
 function categoryReducer (state = [], action) {
@@ -145,20 +146,9 @@ function categoryReducer (state = [], action) {
   return state
 }
 
-// TODO rename as redirect reducer?
-function envReducer (state = { redirect: '', prevPath: '' }, action) {
-  if (action.type === SET_REDIRECT) {
-    return {
-      ...state,
-      redirect: action.redirect
-    }
-  }
-
+function prevPathReducer (state = '', action) {
   if (action.type === SAVE_PREV_PATH) {
-    return {
-      ...state,
-      prevPath: action.prevPath
-    }
+    return action.prevPath
   }
 
   return state
@@ -168,5 +158,5 @@ export default combineReducers({
   posts: sortedPostReducer,
   comments: sortedCommentReducer,
   categories: categoryReducer,
-  env: envReducer
+  prevPath: prevPathReducer
 })

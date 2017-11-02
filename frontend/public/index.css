@@ -39,6 +39,10 @@ label {
   white-space: nowrap;
 }
 
+.breadcrumbs {
+  margin-bottom: calc(1rem + 24px);
+}
+
 .breadcrumbs label,
 .sort-controls label {
   text-align: center;
@@ -76,26 +80,16 @@ textarea {
 .sort-controls .form-item:not(:last-of-type) {
   margin-right: 1rem;
 }
+
 .sort-controls form {
   margin-bottom: 16px;
 }
 
-.sort-controls form > div {
+.sort-controls .form-items {
   display: flex;
   justify-content: center;
 }
 
-/*
-.sort-controls form label {
-  height: 36px;
-  line-height: 36px;
-}
-.sort-controls,
-.sort-controls form {
-  display: flex;
-  align-items: center;
-}
-*/
 .form-item {
   margin-bottom: 1rem;
 }

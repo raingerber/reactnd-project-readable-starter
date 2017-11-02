@@ -12,7 +12,9 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-const fetchJson = (url, opts) => fetch(url, opts).then(res => res.json())
+const fetchJson = (url, opts) => fetch(url, opts).then(res => res.json()).catch((a, b, c) => {
+  console.error(a, b, c)
+})
 
 const getCategories = () => {
   return fetchJson(`${api}/categories`, { headers })
@@ -68,7 +70,7 @@ const editPost = ({ id, title, body }) => {
       title,
       body
     })
-  }).then(() => ({ id, title, body })) // TODO why is this the only function that's doing this?
+  })
 }
 
 const deletePost = ({ id }) => {
@@ -80,7 +82,6 @@ const getPostComments = ({ id }) => {
 }
 
 const addComment = ({ body, author, parentId }) => {
-  console.error('comment:', { body, author, parentId })
   return fetchJson(`${api}/comments`, {
     headers,
     method: 'POST',

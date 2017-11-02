@@ -16,7 +16,6 @@ import {
   VOTE_ON_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
-  SET_REDIRECT,
   SAVE_PREV_PATH
 } from './types'
 
@@ -41,5 +40,4 @@ export const downVoteComment = thunk(VOTE_ON_COMMENT, api.downVoteComment)
 export const editComment = thunk(EDIT_COMMENT, api.editComment)
 export const deleteComment = thunk(DELETE_COMMENT, api.deleteComment)
 
-export const setRedirect = (redirect) => ({ type: SET_REDIRECT, redirect })
 export const savePrevPath = (prevPath) => ({ type: SAVE_PREV_PATH, prevPath })
