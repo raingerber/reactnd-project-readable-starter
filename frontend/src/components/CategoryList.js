@@ -18,7 +18,7 @@ function CategoryList ({ categories }) {
         </li>
         {categories.map(({ name, path }) => (
           <li key={`${name}${path}`}>
-            <NavLink exact to={`/category/${path}`} activeClassName='active'>{name}</NavLink>
+            <NavLink exact to={`/${path}`} activeClassName='active'>{name}</NavLink>
           </li>
         ))}
       </ul>

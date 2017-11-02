@@ -18,8 +18,8 @@ const redirects = {
     const type = props.type.toLowerCase()
     return `/${type}/edit/${props.parentId}/${props.id}`
   },
-  onSave: (props) => `/post/${props.parentId}`,
-  onDelete: (props) => `/post/${props.parentId}`,
+  onSave: (props) => props.parentPost.category ? `/${props.parentPost.category}/${props.parentId}` : '/',
+  onDelete: (props) => props.parentPost.category ? `/${props.parentPost.category}/${props.parentId}` : '/',
   onCancel: (props) => props.prevPath || '/'
 }
 
@@ -47,4 +47,9 @@ function Comment (props) {
   )
 }
 
-export default connect()(Comment)
+const mapStateToProps = ({ posts: { posts } }, { parentId }) => {
+  const parentPost = posts.find((post) => post.id === parentId) || {}
+  return { parentPost }
+}
+
+export default connect(mapStateToProps)(Comment)

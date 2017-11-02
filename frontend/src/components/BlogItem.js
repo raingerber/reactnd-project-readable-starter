@@ -120,7 +120,7 @@ class BlogItem extends Component {
                   Delete
                 </StyledLink>}
               {this.props.enableComments &&
-                <StyledLink to={`/post/${this.props.id}`} className='comments-button'>
+                <StyledLink to={`/${this.props.category}/${this.props.id}`} className='comments-button'>
                   {`Comments (${this.props.commentCount || 0})`}
                 </StyledLink>}
             </div>

@@ -19,7 +19,7 @@ const redirects = {
     return `/${type}/edit/${props.id}`
   },
   onSave: (props, state) => {
-    return `/category/${state.category}`
+    return `/${state.category}`
   },
   onDelete: (props) => '/',
   onCancel: (props) => props.prevPath || '/'

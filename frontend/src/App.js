@@ -48,23 +48,27 @@ class App extends Component {
               this.props.dispatch(getPosts())
               return <HomePage {...props} />
             }} />
-            <Route exact path='/category/:category' render={(props) => {
-              const category = get(props, ['match', 'params', 'category'])
-              this.props.dispatch(getCategoryPosts({ category }))
-              return <HomePage {...props} category={category} />
-            }} />
-            <Route path='/post/edit/:id?' render={(props) => {
+            <Route exact path='/post/edit/:id?' render={(props) => {
               const id = get(props, ['match', 'params', 'id'])
               const category = get(props, ['location', 'state', 'category'])
               return <PostPage {...props} id={id} category={category} editMode />
             }} />
-            <Route path='/post/:id' render={(props) => {
+            <Route exact path='/post/:id' render={(props) => {
               const id = get(props, ['match', 'params', 'id'])
               return <PostPage {...props} id={id} editMode={false} />
             }} />
-            <Route path='/comment/edit/:parentId/:id?' render={(props) => {
+            <Route exact path='/comment/edit/:parentId/:id?' render={(props) => {
               const { parentId, id } = get(props, ['match', 'params'], {})
               return <CommentPage {...props} parentId={parentId} id={id} />
+            }} />
+            <Route exact path='/:category/:id?' render={(props) => {
+              const { id, category } = get(props, ['match', 'params'], {})
+              if (id) {
+                return <PostPage {...props} id={id} editMode={false} />
+              } else {
+                this.props.dispatch(getCategoryPosts({ category }))
+                return <HomePage {...props} category={category} />
+              }
             }} />
             <Route render={() => <Redirect to='/' />} />
           </Switch>
