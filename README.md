@@ -17,6 +17,10 @@ To get started developing right away:
     - `cd frontend`
     - `npm start`
 
+After following the above steps, you can visit the site in your browser. By default, the site runs on port 3001, so if testing locally please visit http://localhost:3001 in your browser.
+
+Note: to view the details of a post, please click the "Comments" button in the bottom right corner (this button also displays the total number of comments that each post has).
+
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
