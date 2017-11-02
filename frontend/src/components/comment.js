@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 
 import BlogItem from './BlogItem'
 
-// TODO make '/' the default prevPath
-
 import {
   addComment,
   editComment,
@@ -13,6 +11,8 @@ import {
   deleteComment
 } from '../actions/index'
 
+// this object specifies where the Edit, Save, Delete, and Cancel
+// buttons should redirect after they are clicked
 const redirects = {
   onEdit: (props) => {
     const type = props.type.toLowerCase()

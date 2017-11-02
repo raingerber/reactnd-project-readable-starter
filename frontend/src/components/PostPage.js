@@ -25,7 +25,6 @@ class PostPage extends Component {
     this.props.history.push(this.props.prevPath || '/')
   }
 
-  // TODO what is this.t?
   render () {
     return (
       <div className='post-detail-view'>
@@ -33,7 +32,7 @@ class PostPage extends Component {
           {this.props.post &&
             <Post
               {...this.props.post}
-              editMode={this.props.editMode || this.t}
+              editMode={this.props.editMode}
             />}
           {this.props.post && this.props.id &&
             <div style={{ marginTop: '2em' }}>

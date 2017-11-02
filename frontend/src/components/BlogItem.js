@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import PropTypes from 'prop-types'
 import get from 'lodash.get'
 
 import EditableText from './EditableText'
@@ -43,7 +42,6 @@ class BlogItem extends Component {
     const legend = isNewItem
       ? `new ${this.props.type}`
       : `${this.props.type} from ${formatUnixTimestamp(Date.now())}`
-    // TODO what if this.props.category is not specified - do the categories ever show?
     return (
       <div className={'blog-item' + (editMode ? ' edit-mode' : '')}>
         {!editMode &&
@@ -132,25 +130,6 @@ class BlogItem extends Component {
     )
   }
 }
-
-// BlogItem.propTypes = {
-//   id: PropTypes.string,
-//   title: PropTypes.string,
-//   body: PropTypes.string,
-//   category: PropTypes.string,
-//   commentCount: PropTypes.number,
-//   timestamp: PropTypes.number,
-//   voteScore: PropTypes.number,
-//   deleted: PropTypes.bool,
-//   type: PropTypes.string,
-//   upVoteItem: PropTypes.func.isRequired,
-//   downVoteItem: PropTypes.func.isRequired,
-//   deleteItem: PropTypes.func.isRequired,
-//   enableComments: PropTypes.bool,
-//   editInline: PropTypes.bool,
-//   enableTitle: PropTypes.bool,
-//   legend: PropTypes.string
-// }
 
 BlogItem.defaultProps = {
   enableCategory: false,

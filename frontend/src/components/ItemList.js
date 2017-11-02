@@ -17,7 +17,7 @@ function ItemList ({ items, type, Item }) {
 }
 
 const mapPostStateToProps = ({ posts: { posts } }) => {
-  return { type: 'post', Item: Post, items: posts } // TODO filter by category?
+  return { type: 'post', Item: Post, items: posts }
 }
 
 const PostList = connect(mapPostStateToProps)(ItemList)

@@ -1,3 +1,7 @@
+/*
+This project uses the kube css library: https://imperavi.com/kube/
+*/
+
 .body-container {
   width: 90vw;
   margin: 0 auto;
@@ -62,12 +66,6 @@ fieldset {
   margin-bottom: 0;
   padding-bottom: .5rem;
 }
-
-/*
-.blog-item.edit-mode fieldset {
-  border: 2px solid black;
-}
-*/
 
 textarea {
   resize: none;

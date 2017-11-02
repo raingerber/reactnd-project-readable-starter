@@ -14,7 +14,7 @@ import {
   GET_POST_COMMENTS,
   ADD_COMMENT,
   GET_COMMENT,
-  VOTE_ON_COMMENT, // TODO have two versions of this?
+  VOTE_ON_COMMENT,
   EDIT_COMMENT,
   DELETE_COMMENT,
   UPDATE_POST_SORT,
@@ -22,7 +22,7 @@ import {
 } from '../actions/types'
 
 const addItem = (items, item) => {
-  return items.concat(item) // TODO sort this array
+  return items.concat(item)
 }
 
 const updateItem = (items, id, data) => items.map((item) => {
@@ -41,6 +41,8 @@ function hasError (action) {
   return !!get(action, ['data', 'error'])
 }
 
+// I could use switch statements instead of repeated if statements,
+// but personally I think the if statements are easier to read
 function postReducer (state = [], action) {
   if (hasError(action)) {
     return []
@@ -77,6 +79,9 @@ function postReducer (state = [], action) {
   if (action.type === DELETE_POST) {
     return deleteItem(state, action.data.id)
   }
+
+  // this function is called from sortedPostReducer, and if we don't
+  // return anything here, sortedPostReducer still just return the current state
 }
 
 function commentReducer (state = [], action) {
