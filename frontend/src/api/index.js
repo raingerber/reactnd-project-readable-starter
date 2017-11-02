@@ -12,9 +12,7 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
-const fetchJson = (url, opts) => fetch(url, opts).then(res => res.json()).catch((a, b, c) => {
-  console.error(a, b, c)
-})
+const fetchJson = (url, opts) => fetch(url, opts).then(res => res.json())
 
 const getCategories = () => {
   return fetchJson(`${api}/categories`, { headers })

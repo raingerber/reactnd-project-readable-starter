@@ -25,7 +25,6 @@ const redirects = {
 
 function Comment (props) {
   const { dispatch, id, parentId } = props
-  // console.error('comment ::: ' + props.body)
   return (
     <BlogItem
       {...props}
@@ -35,12 +34,9 @@ function Comment (props) {
       downVoteItem={() => dispatch(downVoteComment({ id }))}
       deleteItem={() => dispatch(deleteComment({ id }))}
       onSubmit={({ body, author }) => {
-        // console.error({ dispatch, id, parentId })
         if (id) {
-          // console.error({ id, body })
           dispatch(editComment({ id, body }))
         } else {
-          // console.error({ parentId, author, body })
           dispatch(addComment({ parentId, author, body }))
         }
       }}
