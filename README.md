@@ -21,7 +21,7 @@ After following the above steps, you can visit the site in your browser. By defa
 
 Note: to view the details of a post, please click the "Comments" button in the bottom right corner (this button also displays the total number of comments that each post has). This will take you to the /:category/:postId route.
 
-After editing a post, you will be redirected to the category page for that post's category.
+After editing a post, you will be redirected to the category page for that post's category. There is no form validation, so it's okay to leave input fields blank when creating posts and comments.
 
 ## API Server
 
