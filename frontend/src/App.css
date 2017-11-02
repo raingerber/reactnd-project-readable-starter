@@ -1,0 +1,8 @@
+.link-td:hover {
+  cursor: pointer;
+  background: #e0e1e1;
+}
+
+.link-td.selected {
+  background: #bdbdbd
+}
