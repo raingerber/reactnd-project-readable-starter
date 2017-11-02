@@ -123,6 +123,7 @@ function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', p
     return { sortKey, sortOrder, posts }
   }
 
+  // postReducer only returns a value if the posts array was changed
   let posts = postReducer(state.posts, action)
 
   if (posts) {
@@ -131,6 +132,7 @@ function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', p
     return { sortKey, sortOrder, posts }
   }
 
+  // ..but if the posts were not changed, we just return the state without resorting the posts
   return state
 }
 

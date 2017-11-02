@@ -21,6 +21,8 @@ After following the above steps, you can visit the site in your browser. By defa
 
 Note: to view the details of a post, please click the "Comments" button in the bottom right corner (this button also displays the total number of comments that each post has).
 
+After editing a post, you will be redirected to the category page for that post's category.
+
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
