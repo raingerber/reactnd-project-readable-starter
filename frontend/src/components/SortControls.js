@@ -3,7 +3,16 @@ import { connect } from 'react-redux'
 
 import { UPDATE_POST_SORT } from '../actions/types'
 
-const SORT_KEYS = ['Votes', 'Timestamp', 'Title']
+const SORT_KEYS = [{
+  displayKey: 'Votes',
+  sortKey: 'voteScore'
+}, {
+  displayKey: 'Timestamp',
+  sortKey: 'timestamp'
+}, {
+  displayKey: 'Title',
+  sortKey: 'title'
+}]
 
 class SortControls extends Component {
   onChange (key, event) {
@@ -28,8 +37,8 @@ class SortControls extends Component {
               <select className='small'
                 value={this.props.sortKey}
                 onChange={this.onChange.bind(this, 'sortKey')}>
-                {SORT_KEYS.map((key) => (
-                  <option key={key} value={key.toLowerCase()}>{key}</option>
+                {SORT_KEYS.map((data) => (
+                  <option key={data.sortKey} value={data.sortKey}>{data.displayKey}</option>
                 ))}
               </select>
             </div>

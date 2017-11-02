@@ -127,9 +127,10 @@ function sortedPostReducer (state = { sortKey: 'voteScore', sortOrder: 'desc', p
   let posts = postReducer(state.posts, action)
 
   if (posts) {
-    const { sortKey, sortOrder } = state
-    posts = sortItems(posts, sortKey, sortOrder).filter((post) => !post.deleted)
-    return { sortKey, sortOrder, posts }
+    // const { sortKey, sortOrder } = state
+    posts = sortItems(posts, state.sortKey, state.sortOrder).filter((post) => !post.deleted)
+    return { ...state, posts }
+    // return { sortKey, sortOrder, posts }
   }
 
   // ..but if the posts were not changed, we just return the state without resorting the posts
