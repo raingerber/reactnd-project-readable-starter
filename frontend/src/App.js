@@ -6,9 +6,9 @@ import get from 'lodash.get'
 
 import './App.css'
 
-import HomePage from './components/home-page'
-import PostPage from './components/post-page'
-import CommentPage from './components/comment-page'
+import HomePage from './components/HomePage'
+import PostPage from './components/PostPage'
+import CommentPage from './components/CommentPage'
 
 import {
   getCategories,

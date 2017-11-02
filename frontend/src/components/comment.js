@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import BlogItem from './blog-item'
+import BlogItem from './BlogItem'
 
 // TODO make '/' the default prevPath
 
