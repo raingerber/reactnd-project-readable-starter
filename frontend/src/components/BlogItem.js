@@ -41,7 +41,7 @@ class BlogItem extends Component {
     const editMode = this.props.editMode
     const legend = isNewItem
       ? `new ${this.props.type}`
-      : `${this.props.type} from ${formatUnixTimestamp(Date.now())}`
+      : `${this.props.type} from ${formatUnixTimestamp(this.props.timestamp)}`
     return (
       <div className={'blog-item' + (editMode ? ' edit-mode' : '')}>
         {!editMode &&
