@@ -6,6 +6,7 @@ import get from 'lodash.get'
 
 import './App.css'
 
+import CategoryList from './components/CategoryList'
 import HomePage from './components/HomePage'
 import PostPage from './components/PostPage'
 import CommentPage from './components/CommentPage'
@@ -41,6 +42,7 @@ class App extends Component {
           ? <a className='home-link' onClick={resetScrollTop}><TiHome /></a>
           : <Link to='/' className='home-link'><TiHome /></Link>}
         <div className='body-container'>
+          <CategoryList location={this.props.location} />
           <Switch>
             <Route exact path='/' render={(props) => {
               this.props.dispatch(getPosts())

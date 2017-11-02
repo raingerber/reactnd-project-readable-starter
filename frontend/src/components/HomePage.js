@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import CategoryList from './CategoryList'
 import SortControls from './SortControls'
 import { PostList } from './ItemList'
 import { StyledLink } from './Button'
@@ -13,7 +12,6 @@ import { StyledLink } from './Button'
 function HomePage (props) {
   return (
     <div className='home-page'>
-      <CategoryList location={props.location} />
       {props.hasPosts &&
         <SortControls />}
       <div className='centered-button-container'>
