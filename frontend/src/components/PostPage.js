@@ -14,10 +14,7 @@ class PostPage extends Component {
   }
 
   getPost (id) {
-    this.props.dispatch(getPost({ id })).then(({ data }) => {
-      data.error && this.redirect()
-    })
-
+    this.props.dispatch(getPost({ id }))
     this.props.dispatch(getPostComments({ id }))
   }
 
@@ -28,22 +25,28 @@ class PostPage extends Component {
   render () {
     return (
       <div className='post-detail-view'>
-        <Loader loaded={!!this.props.post}>
-          {this.props.post &&
-            <Post
-              {...this.props.post}
-              editMode={this.props.editMode}
-            />}
-          {this.props.post && this.props.id &&
-            <div style={{ marginTop: '2em' }}>
-              <div className='centered-button-container'>
-                <StyledLink to={{ pathname: `/comment/edit/${this.props.id}` }}>
-                  Add Comment
-                </StyledLink>
-              </div>
-              <CommentList parentId={this.props.id} />
-            </div>}
-        </Loader>
+        {Object.keys(this.props.post || {}).length ? (
+          <Loader loaded={!!this.props.post}>
+            {this.props.post &&
+              <Post
+                {...this.props.post}
+                editMode={this.props.editMode}
+              />}
+            {this.props.post && this.props.id &&
+              <div style={{ marginTop: '2em' }}>
+                <div className='centered-button-container'>
+                  <StyledLink to={{ pathname: `/comment/edit/${this.props.id}` }}>
+                    Add Comment
+                  </StyledLink>
+                </div>
+                <CommentList parentId={this.props.id} />
+              </div>}
+          </Loader>
+        ) : (
+          <div className='text-center'>
+            There was no post found with the ID <i>{this.props.id}.</i>
+          </div>
+        )}
       </div>
     )
   }
