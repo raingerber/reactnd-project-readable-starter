@@ -18,6 +18,10 @@ class PostPage extends Component {
     this.props.dispatch(getPostComments({ id }))
   }
 
+  postIsLoaded (post) {
+    return !this.props.id || !!Object.keys(post || {}).length
+  }
+
   redirect () {
     this.props.history.push(this.props.prevPath || '/')
   }
@@ -25,7 +29,7 @@ class PostPage extends Component {
   render () {
     return (
       <div className='post-detail-view'>
-        {Object.keys(this.props.post || {}).length ? (
+        {this.postIsLoaded(this.props.post) ? (
           <Loader loaded={!!this.props.post}>
             {this.props.post &&
               <Post
