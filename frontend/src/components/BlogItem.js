@@ -55,7 +55,7 @@ class BlogItem extends Component {
             {this.props.enableCategory &&
               <div className='form-item'>
                 <label>Category:</label>
-                {editMode ? (
+                {isNewItem ? (
                   <select
                     value={this.state.category}
                     onChange={(event) => this.setState({ category: event.target.value })}>
