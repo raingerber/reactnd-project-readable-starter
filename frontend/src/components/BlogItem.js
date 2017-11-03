@@ -44,12 +44,11 @@ class BlogItem extends Component {
       : `${this.props.type} from ${formatUnixTimestamp(this.props.timestamp)}`
     return (
       <div className={'blog-item' + (editMode ? ' edit-mode' : '')}>
-        {!editMode &&
-          <CounterPanel
-            increment={this.props.upVoteItem}
-            decrement={this.props.downVoteItem}
-            count={this.props.voteScore}
-          />}
+        <CounterPanel
+          increment={this.props.upVoteItem}
+          decrement={this.props.downVoteItem}
+          count={this.props.voteScore}
+        />
         <form className='form post-form' onSubmit={this.onSubmit.bind(this)}>
           <fieldset>
             <legend>{legend}</legend>
